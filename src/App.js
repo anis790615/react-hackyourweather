@@ -3,12 +3,12 @@ import axios from "axios";
 import "./App.css";
 import SearchForm from "./components/SearchForm";
 import City from "./components/City";
-const {port} = require("./config/config");
+const {api_key} = require("./config/config");
 
 function App() {
     // State
     const URL = "https://api.openweathermap.org/data/2.5/weather?";
-    const API_LINK = `&appid=${port}`;
+    const API_LINK = `&appid=${api_key}`;
     const [city, setCity] = useState({});
     const [cityQuery, setCityQuery] = useState("");
     const [isError, setError] = useState(false);
@@ -23,6 +23,7 @@ function App() {
         e.preventDefault();
 
         setFetchLink(`${URL}q=${cityQuery}&units=metric${API_LINK}`);
+        console.log(fetchLink);
     };
     // Side Effect
     useEffect(() => {
