@@ -7,7 +7,7 @@ const {port} = require("./config/config");
 
 function App() {
     // State
-    const URL = "http://api.openweathermap.org/data/2.5/weather?";
+    const URL = "https://api.openweathermap.org/data/2.5/weather?";
     const API_LINK = `&appid=${port}`;
     const [city, setCity] = useState({});
     const [cityQuery, setCityQuery] = useState("");
