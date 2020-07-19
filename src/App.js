@@ -33,7 +33,7 @@ function App() {
   const fetchData = async (fetchLink) => {
     try {
       setError(false);
-      if (cityQuery.length < 1) {
+      if (cityQuery.length <= 1) {
         throw Error("Query too short");
       }
 
