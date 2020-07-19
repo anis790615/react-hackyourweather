@@ -1,70 +1,123 @@
 .App {
-    max-width: 768px;
-    margin: 1rem auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  max-width: 768px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .card {
-    padding: 0.5rem 1rem;
-    border: 1px solid black;
-    margin: 1rem;
-    width: 300px;
-    list-style: none;
+  padding: 0.5rem 1rem;
+  background: whitesmoke;
+  margin: 1rem;
+  width: 300px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+/* Card transitions */
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.card-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .card-title {
-    font-weight: bold;
-    font-size: 1.4rem;
-    padding: 0.5rem 0;
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+.delete-btn {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  border: 2px solid burlywood;
+  color: burlywood;
+  background: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  outline: none;
+}
+.delete-btn:hover {
+  background: burlywood;
+  border-color: burlywood;
+  color: white;
 }
 .card-overview {
-    padding: 0.5rem 0;
-    font-size: 0.9rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
 }
 .card-overview-main {
-    font-weight: bold;
-    font-size: 1.2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 .card-detail {
-    padding: 0.5rem 0;
-    line-height: 1.3;
-    font-size: 0.9rem;
+  padding: 0.5rem 0;
+  line-height: 1.3;
+  font-size: 0.9rem;
 }
 /* Form CSS */
 .form {
-    margin: 1rem 0;
-    display: flex;
-    width: 300px;
-    justify-content: space-between;
+  margin: 1rem 0;
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
 }
 .input-container {
-    width: 70%;
-    position: relative;
-    /* border: 1px solid grey; */
-    flex: 4 1;
-    margin: 0 1rem 0 0;
+  width: 70%;
+  position: relative;
+  flex: 4 1;
+  margin: 0 1rem 0 0;
 }
 
 .input-field {
-    width: 100%;
-    height: 100%;
-    border: 1px solid darkgrey;
-    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-    border-radius: 10px;
-    outline-color: black;
+  width: 100%;
+  height: 100%;
+  border: 1px solid burlywood;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  border-radius: 10px;
+  outline-color: burlywood;
 }
 .search-icon {
-    position: absolute;
-    top: 0.55rem;
-    left: 0.5rem;
-    width: 0.7rem;
+  position: absolute;
+  top: 0.55rem;
+  left: 0.5rem;
+  width: 0.7rem;
 }
-.search-btn {
-    width: 20%;
-    flex: 1 1;
+.search-btn,
+.search-btn:focus {
+  width: 20%;
+  flex: 1 1;
+  border-radius: 5px;
+  background: darkgoldenrod;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.search-btn:hover {
+  background: rgb(94, 72, 16);
 }
 /* Error */
 .error-message {
-    color: red;
-    text-transform: capitalize;
+  color: red;
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  width: 300px;
+  text-align: center;
 }
