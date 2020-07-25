@@ -20,7 +20,7 @@ function App() {
   const changeHandle = (e) => {
     setCityQuery(e.target.value);
   };
-  const clickHandle = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     const fetchURL = `${URL}q=${cityQuery}&units=metric${API_LINK}`;
     fetchData(fetchURL);
@@ -69,7 +69,7 @@ function App() {
       <h1>Weather</h1>
       <SearchForm
         onChange={changeHandle}
-        onClick={clickHandle}
+        onClick={handleClick}
         cityQuery={cityQuery}
       />
       <Alert isError={isError} errorMessage={errorMessage} />
