@@ -6,8 +6,8 @@ function CitiesList({ cities, handleDelete }) {
   return (
     <TransitionGroup>
       {cities.map((city, index) => (
-        <CSSTransition classNames="fade" timeout={300}>
-          <City city={city} handleDelete={handleDelete} key={index} />
+        <CSSTransition classNames="fade" timeout={300} key={index}>
+          <City city={city} handleDelete={handleDelete} />
         </CSSTransition>
       ))}
     </TransitionGroup>
