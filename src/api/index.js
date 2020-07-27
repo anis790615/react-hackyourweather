@@ -8,7 +8,8 @@ const FETCH_DATA = `&units=metric&appid=${api_key}`;
 export const fetchData = async (city, forecast) => {
   let fetchUrl;
   if (forecast) {
-    fetchUrl = `${URL}forecast?q=${city}${FETCH_DATA}`;
+    fetchUrl = `${URL}forecast?id=${city}${FETCH_DATA}`;
+    console.log(fetchUrl);
   } else {
     fetchUrl = `${URL}weather?q=${city}${FETCH_DATA}`;
   }

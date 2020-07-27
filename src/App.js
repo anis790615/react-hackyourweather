@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import SearchForm from "./components/SearchForm";
 import CitiesList from "./components/CitiesList";
@@ -79,7 +74,11 @@ function App() {
             <CitiesList cities={cities} handleDelete={handleDelete} />
           </Route>
           <Route path="/city/:id">
-            <CityDetailed />
+            <Alert isError={isError} errorMessage={errorMessage} />
+            <CityDetailed
+              setError={setError}
+              setErrorMessage={setErrorMessage}
+            />
           </Route>
         </Switch>
       </Router>
