@@ -1,14 +1,21 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-function City({ city, deleteHandle }) {
+function City({ city, handleDelete }) {
+  const history = useHistory();
+  const handleClick = (e) => {
+    if (e.target.nodeName !== "BUTTON") {
+      history.push(`/city/${city.id}`);
+    }
+  };
   return (
     <>
-      <li className="card">
+      <li className="card" onClick={handleClick}>
         <div className="card-header-wrapper">
           <p className="card-title">
             {city.name}, {city.sys.country}
           </p>
-          <button className="delete-btn" onClick={deleteHandle} value={city.id}>
+          <button className="delete-btn" onClick={handleDelete} value={city.id}>
             x
           </button>
         </div>

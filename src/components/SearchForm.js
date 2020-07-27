@@ -18,7 +18,7 @@ function SearchForm({ cityQuery, onClick, onChange }) {
         />
       </div>
       <button
-        className="search-btn"
+        className="btn search-btn"
         onClick={onClick}
         disabled={cityQuery.length < 1}
       >

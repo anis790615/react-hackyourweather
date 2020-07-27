@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useParams,
+} from "react-router-dom";
 import "./App.css";
 import SearchForm from "./components/SearchForm";
 import CitiesList from "./components/CitiesList";
+import CityDetailed from "./components/CityDetailed";
 import Alert from "./components/Alert";
-
-const { api_key } = require("./config/config");
+import { fetchData } from "./api/index";
 
 function App() {
+  const initialCities = localStorage.getItem("cities")
+    ? JSON.parse(localStorage.getItem("cities"))
+    : [];
   // State
-  const URL = "https://api.openweathermap.org/data/2.5/weather?";
-  const API_LINK = `&appid=${api_key}`;
-  const [cities, setCities] = useState([]);
+
+  const [cities, setCities] = useState(initialCities);
   const [cityQuery, setCityQuery] = useState("");
   const [isError, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -20,42 +28,31 @@ function App() {
   const changeHandle = (e) => {
     setCityQuery(e.target.value);
   };
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    const fetchURL = `${URL}q=${cityQuery}&units=metric${API_LINK}`;
-    fetchData(fetchURL);
-  };
-  const deleteHandle = (e) => {
-    const modifiedCities = cities.filter((city) => city.id !== +e.target.value);
-    setCities(modifiedCities);
-  };
 
-  const fetchData = async (fetchLink) => {
     try {
       setError(false);
       if (cityQuery.length <= 1) {
         throw Error("Query too short");
       }
-
-      const response = await axios.get(fetchLink);
-      if (cities.some((city) => city.sys.id === response.data.sys.id)) {
+      const data = await fetchData(cityQuery);
+      if (cities.some((city) => city.sys.id === data.sys.id)) {
         throw Error("City already present in the list");
       }
-      setCities([response.data, ...cities]);
+      setCities([data, ...cities]);
       setCityQuery("");
     } catch (error) {
       setCityQuery("");
       setError(true);
-      if (error.response) {
-        const { message } = error.response.data;
-        setErrorMessage(message);
-      } else if (error.request) {
-        setErrorMessage(error);
-      } else {
-        setErrorMessage(error.message);
-      }
+      setErrorMessage(error.message);
     }
   };
+  const handleDelete = (e) => {
+    const modifiedCities = cities.filter((city) => city.id !== +e.target.value);
+    setCities(modifiedCities);
+  };
+
   // Side Effect
   useEffect(() => {
     setTimeout(() => {
@@ -63,17 +60,29 @@ function App() {
       setErrorMessage(null);
     }, 2000);
   }, [errorMessage]);
+  useEffect(() => {
+    localStorage.setItem("cities", JSON.stringify(cities));
+  }, [cities]);
 
   return (
     <div className="App">
-      <h1>Weather</h1>
-      <SearchForm
-        onChange={changeHandle}
-        onClick={handleClick}
-        cityQuery={cityQuery}
-      />
-      <Alert isError={isError} errorMessage={errorMessage} />
-      <CitiesList cities={cities} deleteHandle={deleteHandle} />
+      <Router>
+        <h1>Weather</h1>
+        <Switch>
+          <Route path="/" exact>
+            <SearchForm
+              onChange={changeHandle}
+              onClick={handleClick}
+              cityQuery={cityQuery}
+            />
+            <Alert isError={isError} errorMessage={errorMessage} />
+            <CitiesList cities={cities} handleDelete={handleDelete} />
+          </Route>
+          <Route path="/city/:id">
+            <CityDetailed />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
