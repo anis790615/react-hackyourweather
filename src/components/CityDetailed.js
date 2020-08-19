@@ -34,7 +34,6 @@ function CityDetailed({ setError, setErrorMessage }) {
       try {
         const data = await fetchData(id, true);
         setCityForecast(data);
-        console.log(data);
       } catch (error) {
         setError(true);
         setErrorMessage(error.message);
